@@ -2,6 +2,7 @@ const port = 5000;
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const app = express();
 
 // app.use eh configurado para qualquer requisicao, seja POST, PUT, GET ou DELETE. 
@@ -13,6 +14,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Com o app.use bodyParser.json, a aplicacao passa a receber requisicoes de tipo JSOn 
 // os dados recebidos, serão acessiveis a partir de req.body.<chave>
 app.use(bodyParser.json());
+
+// habilitacao do cors para requisicoes
+app.use(cors())
 
 // Importacao da API's 
 

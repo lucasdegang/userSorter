@@ -3,11 +3,15 @@
 
 module.exports = app => {
     const getLoginUser = async (req, res) => {
+
+        //const user = {...req.body}
+        const userBody = req.body
+        //const userParams = req.params
         
-        const user = {...req.body}
-        console.log(user.email)
+        console.log(userBody.email)
+        //console.log(userParams.email)
         
-        if(!user.email){
+        if(!userBody.email){
             res.status(400).send("Dados inválidos");
         }else{
             //res.send({ status: '200', msg: 'OK', obj: user.email})
@@ -19,7 +23,8 @@ module.exports = app => {
         //console.log(param)
     }
 
-    app.get('/sign-in/auth', getLoginUser)
+    app.post('/sign-in/auth', getLoginUser)
+    //app.get('/sign-in/auth/:email', getLoginUser) // params
     //app.post('/qualquerDiretorio', postLoginUser)
     //app.put('/qualquerDiretorio', putLoginUser)
     //app.delete('/qualquerDiretorio', deleteLoginUser)

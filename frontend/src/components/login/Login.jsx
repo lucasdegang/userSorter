@@ -1,8 +1,9 @@
 
 import React, { Component } from "react";
 import axios from 'axios'
+import qs from 'qs'
 
-const baseUrl = 'http://localhost:5000/sign-in/auth'
+const baseUrl = `http://localhost:5000/sign-in/auth`
 
 export default class Login extends Component {
 
@@ -15,26 +16,41 @@ export default class Login extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
+        
+        //const data = qs.stringify({
+        //     email: this.state.email
+        //})
 
-        const e = {
-            email : this.state.email
-        }
-
-        var x = JSON.stringify(e);
-        console.log(x)
+        const data = JSON.stringify({ "email": this.state.email });
 
         var config = {
-            method: 'get',
-            headers: { 
-              'Content-Type': 'application/x-www-form-urlencoded'
+            method: 'post',
+            url: baseUrl,
+            headers: {
+                'Api-Token': data.length, 
+                'Content-Type': 'application/json',
+                "Content-Length": data.length
             },
-            data : x
+            data: data
           };
 
-        axios.get(`${baseUrl}`, [config])
-        .then(res => {
-          console.log(res);
-        })         
+        console.log("config.data.email " + config.data.email)
+        console.log("config.url " + config.url)
+        console.log(axios(config))
+
+        const api = async () =>{
+            try {
+                const resp = 
+                    await axios(config)
+                        .then(res => {
+                            console.log("axios res " + res);
+                        })
+            } catch (error) {                
+                console.log("axios error response")
+                console.log(error.response)
+            }
+        }
+        api()
     }
 
     updateField(event){
